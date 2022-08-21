@@ -5,7 +5,7 @@ params:
   pdf_export:
     value: yes
   sheet_ss_id:
-    value: 1QddDqJr5dkA_Kn7NyTgXf1VcHYv_xCVvmz6bABNfgvQ
+    value: "1QddDqJr5dkA_Kn7NyTgXf1VcHYv_xCVvmz6bABNfgvQ"
   online_link:
     value: "https://ryan22892.github.io/data-expert"
   pdf_location:
@@ -49,12 +49,11 @@ position_data <- read_sheet(params$sheet_ss_id, sheet = "entries", skip = 1) %>%
     section = case_when(
       section %in% c('industry_positions') ~ 'positions', 
       TRUE ~ section
-    )
-  ) 
+    ))
 
-intro_text <- read_sheet(params$sheet_ss_id, sheet = "text_blocks", skip = 1) ## %>%
- # select("text") %>% 
-  # as.character()
+intro_text <- read_sheet(params$sheet_ss_id, sheet = "text_blocks", skip = 1)  %>%
+  select("text") %>% 
+   as.character()
 
 skills <- read_sheet(params$sheet_ss_id, sheet = "skills", skip = 1) 
 
@@ -62,7 +61,7 @@ skills <- read_sheet(params$sheet_ss_id, sheet = "skills", skip = 1)
 
 # Aside
 
-![headshot](https://raw.githubusercontent.com/ryan22892/data-expert/main/headshot.png?token=GHSAT0AAAAAABX3HDRQP6TJ72KTN36OOQ42YYCILUQ){width="90%"}
+![headshot](https://raw.githubusercontent.com/ryan22892/data-expert/main/headshot.png){width="90%"}
 
 ### Contact {#contact}
 
@@ -70,9 +69,9 @@ skills <- read_sheet(params$sheet_ss_id, sheet = "skills", skip = 1)
 
 -   <i class="fa fa-map-marker"></i> New York, NY
 
--   <i class="fa fa-envelope"></i> [jtgregoire93\@gmail.com](mailto:jtgregoire93@gmail.com){.email}
+-   <i class="fa fa-envelope"></i> [ryry22892\@gmail.com](mailto:ryry22892@gmail.com){.email}
 
--   <i class="fa fa-phone"> </i> +1 757-619-7431
+-   <i class="fa fa-phone"> </i> +1 562-595-3922
 
 ### Education {data-icon="graduation-cap" data-concise="true"}
 
@@ -117,7 +116,7 @@ if(PDF_EXPORT){
 
 # Main
 
-## Justin Gregoire {#title}
+## Ryan Jacobs {#title}
 
 ```{r message=FALSE, warning=FALSE}
 cat(sanitize_links(intro_text))
