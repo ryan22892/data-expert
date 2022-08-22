@@ -60,7 +60,7 @@ skills <- read_sheet(params$sheet_ss_id, sheet = "skills", skip = 1)
 
 # Aside
 
-![headshot](https://raw.githubusercontent.com/ryan22892/data-expert/main/headshot.png){width="90%"}
+![headshot]{width="90%"}
 
 ### Contact {#contact}
 
