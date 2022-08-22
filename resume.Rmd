@@ -1,24 +1,21 @@
 ---
-title: "Ryan Jacobs's CV"
+title: Ryan Jacobs's CV
 date: "`r Sys.Date()`"
-params:
-  pdf_export:
-    value: true
-  sheet_ss_id:
+params: 
+  pdf_export: 
+    value: TRUE
+  sheet_ss_id: 
     value: "1QddDqJr5dkA_Kn7NyTgXf1VcHYv_xCVvmz6bABNfgvQ"
   online_link:
     value: "https://ryan22892.github.io/data-expert"
-  pdf_location:
-    value: "https://github.com/ryan22892/data-expert/main/rjacobs_resume.pdf"
+  pdf_location: 
+    value: "https://github.com/ryan22892/data-expert/raw/main/rjacobs_resume.pdf"
 output:
-  pdf_document: default
   pagedown::html_resume:
-    css:css: ['css/custom_resume.css', 'css/styles.css', 'css/dd_cv.css']
-    self_contained: true
-  html_document:
-    df_print: paged
+    css: ['css/custom_resume.css', 'css/styles.css', 'resume']
+    # set it to true for a self-contained HTML page but it'll take longer to render
+    self_contained: TRUE
 ---
-
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(
@@ -28,7 +25,6 @@ knitr::opts_chunk$set(
 library(tidyverse)
 library(glue)
 library(googlesheets4)
-
 
 # Set this to true to have links turned into footnotes at the end of the document
 PDF_EXPORT <- params$pdf_export
@@ -48,11 +44,12 @@ position_data <- read_sheet(params$sheet_ss_id, sheet = "entries", skip = 1) %>%
     section = case_when(
       section %in% c('industry_positions') ~ 'positions', 
       TRUE ~ section
-    ))
+    )
+  ) 
 
-intro_text <- read_sheet(params$sheet_ss_id, sheet = "text_blocks", skip = 1)  %>%
+intro_text <- read_sheet(params$sheet_ss_id, sheet = "text_blocks", skip = 1) %>%
   select("text") %>% 
-   as.character()
+  as.character()
 
 skills <- read_sheet(params$sheet_ss_id, sheet = "skills", skip = 1) 
 
@@ -60,15 +57,15 @@ skills <- read_sheet(params$sheet_ss_id, sheet = "skills", skip = 1)
 
 # Aside
 
-![headshot]{width="90%"}
+![headshot](https://raw.githubusercontent.com/ryan22892/data-expert/main/headshot.png){width="90%"}
 
 ### Contact {#contact}
 
--   [<i class="fa fa-linkedin"></i>](https://www.linkedin.com/in/ryan-jacobs-1648a8150/){target="_blank"} \| [<i class="fa fa-github"> </i>](https://github.com/ryan22892){target="_blank"} \
+-  [<i class="fa fa-linkedin"></i>](https://www.linkedin.com/in/ryan-jacobs-1648a8150/){target="_blank"} \| [<i class="fa fa-github"> </i>](https://github.com/ryan22892){target="_blank"} \| [<i class="fa fa-calendar"> </i>](https://calendly.com/ryan22892){target="_blank"} Availability
 
 -   <i class="fa fa-map-marker"></i> New York, NY
 
--   <i class="fa fa-envelope"></i> [ryry22892\@gmail.com](mailto:ryry22892@gmail.com){.email}
+-   <i class="fa fa-envelope"></i> [ryan22892\@gmail.com](mailto:ryan22892@gmail.com){.email}
 
 -   <i class="fa fa-phone"> </i> +1 562-595-3922
 
