@@ -1,0 +1,126 @@
+---
+title: Ryan Jacobs's CV
+date: "`r Sys.Date()`"
+params: 
+  pdf_export: 
+    value: TRUE
+  sheet_ss_id: 
+    value: "1QddDqJr5dkA_Kn7NyTgXf1VcHYv_xCVvmz6bABNfgvQ"
+  online_link:
+    value: "https://ryan22892.github.io/data-expert/"
+  pdf_location: 
+    value: "https://github.com/ryan22892/data-expert/raw/main/rjacobs_resume.pdf"
+output:
+  pagedown::html_resume:
+    css: ['css/custom_resume.css', 'css/styles.css', 'resume']
+    # set it to true for a self-contained HTML page but it'll take longer to render
+    self_contained: true
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  results='asis', 
+  echo = FALSE
+)
+library(tidyverse)
+library(glue)
+library(googlesheets4)
+
+# Set this to true to have links turned into footnotes at the end of the document
+PDF_EXPORT <- params$pdf_export
+# ss id of your google sheet, using mine here
+
+# Holds all the links that were inserted for placement at the end
+
+source('parsing_functions.R') # Functions for building sections from CSV data
+source('common_variables.R')  # Small variables for non-csv data such as intro text
+
+# First let's get the data, filtering to only the items tagged as
+# Resume items
+position_data <- read_sheet(params$sheet_ss_id, sheet = "entries", skip = 1) %>% 
+  #filter(in_resume) %>% 
+  mutate(
+    # Build some custom sections by collapsing others
+    section = case_when(
+      section %in% c('industry_positions') ~ 'positions', 
+      TRUE ~ section
+    )
+  ) 
+
+intro_text <- read_sheet(params$sheet_ss_id, sheet = "text_blocks", skip = 1) %>%
+  select("text") %>% 
+  as.character()
+
+skills <- read_sheet(params$sheet_ss_id, sheet = "skills", skip = 1) 
+
+```
+
+# Aside
+
+![headshot](https://raw.githubusercontent.com/ryan22892/data-expert/main/headshot.png){width="90%"}
+
+### Contact {#contact}
+
+-   [<i class="fa fa-linkedin"></i>](https://www.linkedin.com/in/ryan-jacobs-1648a8150/){target="_blank"} \| [<i class="fa fa-github"> </i>](https://github.com/ryan22892){target="_blank"} \| [<i class="fa fa-calendar"></i>](https://calendly.com/ryan22892){target="_blank"} Availability
+
+-   <i class="fa fa-map-marker"></i> New York, NY
+
+-   <i class="fa fa-envelope"></i> [ryry22892\@gmail.com](mailto:ryry22892@gmail.com){.email}
+
+-   <i class="fa fa-phone"> </i> +1 562-595-3922
+
+### Education {data-icon="graduation-cap" data-concise="true"}
+
+-   **`r position_data %>% filter(section == 'education') %>% select("institution")`**
+-   `r position_data %>% filter(section == 'education') %>% select("title")`
+-   `r paste0(position_data %>% filter(section == 'education') %>% select("start"), '-', position_data %>% filter(section == 'education') %>% select("end"))`
+
+### **Technical Skills**
+
+-   `r skills %>% filter(loc == 'technical') %>% select("skill1")`
+
+-   `r skills %>% filter(loc == 'technical') %>% select("skill2")`
+
+-   `r skills %>% filter(loc == 'technical') %>% select("skill3")`
+
+### **Strategic Skills**
+
+-   `r skills %>% filter(loc == 'strategic') %>% select("skill1")`
+
+-   `r skills %>% filter(loc == 'strategic') %>% select("skill2")`
+
+-   `r skills %>% filter(loc == 'strategic') %>% select("skill3")`
+
+### **Toolset**
+
+-   `r skills %>% filter(loc == 'toolset') %>% select("skill1")`
+
+-   `r skills %>% filter(loc == 'toolset') %>% select("skill2")`
+
+-   `r skills %>% filter(loc == 'toolset') %>% select("skill3")`
+
+#### Access {#files}
+
+```{r}
+# When in export mode the little dots are unaligned, so fix that. 
+if(PDF_EXPORT){
+  cat("[Online version](", params$online_link, ")")
+} else {
+  cat("[<i class='fas fa-download'></i> Download PDF version](", params$pdf_location, ")")
+}
+```
+
+# Main
+
+## Ryan Jacobs {#title}
+
+```{r message=FALSE, warning=FALSE}
+cat(sanitize_links(intro_text))
+```
+
+## Professional Experience {data-icon="suitcase"}
+
+```{r comment=NA, results='asis'}
+position_data %>% print_section('positions') 
+
+```
