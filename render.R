@@ -28,3 +28,4 @@ rmarkdown::render("resume.rmd",
 pagedown::chrome_print(input = tmp_html_cv_loc,
                        output = "resume.pdf") 
 pdftools::pdf_compress("resume.pdf", output = "rjacobs_resume.pdf")
+
