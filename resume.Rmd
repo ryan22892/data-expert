@@ -14,7 +14,7 @@ output:
   pagedown::html_resume:
     css: ['css/custom_resume.css', 'css/styles.css', 'resume']
     # set it to true for a self-contained HTML page but it'll take longer to render
-    self_contained: true
+    self_contained: TRUE
 ---
 
 ```{r, include=FALSE}
@@ -73,7 +73,7 @@ skills <- read_sheet(params$sheet_ss_id, sheet = "skills", skip = 1)
 
 -   **`r position_data %>% filter(section == 'education') %>% select("institution")`**
 -   `r position_data %>% filter(section == 'education') %>% select("title")`
--   `r paste0(position_data %>% filter(section == 'education') %>% select("start"), '-', position_data %>% filter(section == 'education') %>% select("end"))`
+
 
 ### **Technical Skills**
 
